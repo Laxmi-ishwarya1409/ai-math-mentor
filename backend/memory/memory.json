@@ -1,0 +1,42 @@
+[
+    {
+        "input": "Find the derivative of x^2 + 5x",
+        "parsed": {
+            "problem_text": "Find the derivative of x^2 + 5x",
+            "topic": "algebra",
+            "variables": [
+                "v",
+                "a",
+                "t",
+                "o",
+                "d",
+                "x",
+                "F",
+                "i",
+                "r",
+                "n",
+                "e",
+                "f",
+                "h"
+            ],
+            "constraints": [],
+            "needs_clarification": false
+        },
+        "context": [
+            "Quadratic Formula:\nx = (-b \u00b1 \u221a(b\u00b2 - 4ac)) / 2a\n\nFactorization:\na\u00b2 - b\u00b2 = (a - b)(a + b)\n\nLinear Equation:\nax + b = 0 \u2192 x = -b/a\n",
+            "Derivative:\nd/dx(x\u207f) = n\u00b7x\u207f\u207b\u00b9\n\nLimits:\nlim x\u21920 sin(x)/x = 1\n\nOptimization:\nCritical points occur where derivative = 0\n"
+        ],
+        "solution": {
+            "solution": "2*x + 5",
+            "method": "symbolic differentiation"
+        },
+        "verification": {
+            "verdict": "PASS",
+            "confidence": 0.9,
+            "needs_human": false
+        },
+        "explanation": "Problem:\nFind the derivative of x^2 + 5x\n\nStep 1: Identify what is required.\nWe need to find the derivative.\n\nStep 2: Apply the derivative rules.\nThe derivative of x^2 is 2x.\nThe derivative of 5x is 5.\n\nStep 3: Combine results.\nFinal Answer: 2*x + 5",
+        "feedback": "correct",
+        "timestamp": "2026-01-03 15:59:37.350547"
+    }
+]

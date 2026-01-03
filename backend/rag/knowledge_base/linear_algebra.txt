@@ -1,0 +1,8 @@
+Matrix Determinant:
+|A| = ad - bc
+
+System of Equations:
+AX = B → X = A⁻¹B
+
+Vector Magnitude:
+|v| = √(x² + y²)

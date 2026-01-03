@@ -1,0 +1,10 @@
+fastapi
+uvicorn
+streamlit
+faiss-cpu
+sentence-transformers
+python-dotenv
+pillow
+pytesseract
+SpeechRecognition
+google-genai

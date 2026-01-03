@@ -1,0 +1,8 @@
+Derivative:
+d/dx(xⁿ) = n·xⁿ⁻¹
+
+Limits:
+lim x→0 sin(x)/x = 1
+
+Optimization:
+Critical points occur where derivative = 0

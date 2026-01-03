@@ -1,0 +1,8 @@
+Quadratic Formula:
+x = (-b ± √(b² - 4ac)) / 2a
+
+Factorization:
+a² - b² = (a - b)(a + b)
+
+Linear Equation:
+ax + b = 0 → x = -b/a

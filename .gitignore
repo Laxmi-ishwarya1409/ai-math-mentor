@@ -1,0 +1,19 @@
+# Python
+venv/
+__pycache__/
+*.pyc
+
+# Environment variables
+.env
+
+# Local files
+temp.png
+temp.wav
+test_parser.py
+
+# Streamlit
+.streamlit/
+
+# OS files
+.DS_Store
+Thumbs.db

@@ -5,6 +5,7 @@ import ast
 def normalize_expression(expr):
     expr = expr.lower()
 
+    # spoken math
     expr = expr.replace("squared", "^2")
     expr = expr.replace("cubed", "^3")
     expr = expr.replace("plus", "+")
@@ -13,12 +14,19 @@ def normalize_expression(expr):
     expr = expr.replace("multiplied by", "*")
     expr = expr.replace("divided by", "/")
 
+    # fix powers
     expr = expr.replace("^", "**")
+
+    # fix trig functions: sin x -> sin(x)
+    expr = re.sub(r'sin\s+([a-zA-Z0-9]+)', r'sin(\1)', expr)
+    expr = re.sub(r'cos\s+([a-zA-Z0-9]+)', r'cos(\1)', expr)
+    expr = re.sub(r'tan\s+([a-zA-Z0-9]+)', r'tan(\1)', expr)
 
     # insert multiplication: 5x -> 5*x
     expr = re.sub(r'(\d)([a-zA-Z])', r'\1*\2', expr)
 
     return expr
+
 
 
 def solve_problem(parsed, context):

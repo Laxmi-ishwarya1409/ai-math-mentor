@@ -17,9 +17,19 @@ def extract_text_from_image(image_path):
             },
         )
 
-    result = response.json()
+    try:
+        result = response.json()
+    except Exception:
+        return "OCR service failed. Please re-upload image or type the question."
+
+    if not isinstance(result, dict):
+        return "OCR service failed. Please re-upload image or type the question."
 
     if result.get("IsErroredOnProcessing"):
         return "Unable to read text from image."
 
-    return result["ParsedResults"][0]["ParsedText"].strip()
+    parsed = result.get("ParsedResults")
+    if not parsed:
+        return "Unable to read text from image."
+
+    return parsed[0].get("ParsedText", "").strip()

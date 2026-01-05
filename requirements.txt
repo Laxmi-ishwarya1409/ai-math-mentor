@@ -9,3 +9,4 @@ pytesseract
 SpeechRecognition
 google-genai
 pytesseract
+requests

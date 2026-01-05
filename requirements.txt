@@ -10,3 +10,4 @@ SpeechRecognition
 google-genai
 pytesseract
 requests
+pydub

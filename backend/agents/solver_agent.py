@@ -2,9 +2,25 @@ import sympy as sp
 import re
 
 def normalize_expression(expr):
+    expr = expr.lower()
+
+    # spoken math replacements
+    expr = expr.replace("squared", "^2")
+    expr = expr.replace("cubed", "^3")
+    expr = expr.replace("plus", "+")
+    expr = expr.replace("minus", "-")
+    expr = expr.replace("times", "*")
+    expr = expr.replace("multiplied by", "*")
+    expr = expr.replace("divided by", "/")
+
+    # convert power symbol
     expr = expr.replace("^", "**")
+
+    # insert multiplication: 5x -> 5*x
     expr = re.sub(r'(\d)([a-zA-Z])', r'\1*\2', expr)
+
     return expr
+
 
 def solve_problem(parsed, context):
     text = parsed["problem_text"].lower()

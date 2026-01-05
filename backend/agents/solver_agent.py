@@ -7,29 +7,32 @@ def normalize_expression(expr):
     return expr
 
 def solve_problem(parsed, context):
-    problem = parsed["problem_text"]
+    text = parsed["problem_text"].lower()
 
     try:
-        if "derivative" in problem.lower():
-            raw_expr = problem.split("of")[-1].strip()
-            clean_expr = normalize_expression(raw_expr)
-
+        # Derivatives
+        if "derivative" in text:
+            expr_str = normalize_expression(text.split("of")[-1])
             x = sp.symbols('x')
-            expr = sp.sympify(clean_expr)
-            solution = sp.diff(expr, x)
+            expr = sp.sympify(expr_str)
+            sol = sp.diff(expr, x)
+            return {"solution": str(sol), "method": "derivative"}
 
-            return {
-                "solution": str(solution),
-                "method": "symbolic differentiation"
-            }
+        # Quadratic equations
+        if "solve" in text and "x" in text:
+            eq = normalize_expression(text.replace("solve", "").replace("=", "-(") + ")")
+            x = sp.symbols('x')
+            sol = sp.solve(sp.sympify(eq), x)
+            return {"solution": str(sol), "method": "quadratic"}
 
-        return {
-            "solution": "Solver could not recognize problem type.",
-            "method": "unknown"
-        }
+        # Limits
+        if "limit" in text:
+            expr = normalize_expression(text.split("of")[-1].split("as")[0])
+            x = sp.symbols('x')
+            sol = sp.limit(sp.sympify(expr), x, 0)
+            return {"solution": str(sol), "method": "limit"}
+
+        return {"solution": "Solver could not recognize problem type.", "method": "unknown"}
 
     except Exception as e:
-        return {
-            "solution": f"Error solving problem: {e}",
-            "method": "exception"
-        }
+        return {"solution": f"Error: {e}", "method": "exception"}

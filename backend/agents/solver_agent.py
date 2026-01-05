@@ -22,14 +22,15 @@ def solve_problem(parsed, context):
 
         # QUADRATIC EQUATIONS
         if "solve" in text and "x" in text and "=" in text:
-            raw = text.replace("solve", "").strip()
+            raw = text.replace("solve", "").replace(":", "").strip()
             left, right = raw.split("=")
-            left = normalize_expression(left)
-            right = normalize_expression(right)
+            left = normalize_expression(left.strip())
+            right = normalize_expression(right.strip())
             x = sp.symbols('x')
             equation = sp.sympify(left) - sp.sympify(right)
             sol = sp.solve(equation, x)
             return {"solution": str(sol), "method": "quadratic"}
+
 
         # LIMITS
         if "limit" in text:

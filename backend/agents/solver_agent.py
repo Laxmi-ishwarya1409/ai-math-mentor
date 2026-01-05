@@ -37,10 +37,12 @@ def solve_problem(parsed, context):
         if "limit" in text:
             x = sp.symbols("x")
             expr = text.split("of")[-1]
-            expr = expr.replace("as x approaches 0", "")
+            expr = expr.replace("as x approaches 0", "").strip()
             expr = normalize_expression(expr)
-            result = sp.limit(expr, x, 0)
+            sym_expr = sp.sympify(expr)
+            result = sp.limit(sym_expr, x, 0)
             return {"solution": str(result), "method": "limit"}
+
 
         # QUADRATIC EQUATION
         if "=" in text:

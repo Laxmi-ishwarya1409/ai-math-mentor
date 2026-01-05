@@ -1,4 +1,5 @@
 import os
+import base64
 from dotenv import load_dotenv
 from google import genai
 
@@ -10,14 +11,21 @@ def extract_text_from_image(image_path):
     with open(image_path, "rb") as f:
         image_bytes = f.read()
 
+    encoded = base64.b64encode(image_bytes).decode("utf-8")
+
     response = client.models.generate_content(
         model="gemini-1.5-flash",
         contents=[
             {
                 "role": "user",
                 "parts": [
-                    {"text": "Extract the math problem from this image exactly. Return only the text."},
-                    {"inline_data": {"mime_type": "image/png", "data": image_bytes}},
+                    {"text": "Extract the math problem from this image. Return only the problem text."},
+                    {
+                        "inline_data": {
+                            "mime_type": "image/png",
+                            "data": encoded
+                        }
+                    },
                 ],
             }
         ],

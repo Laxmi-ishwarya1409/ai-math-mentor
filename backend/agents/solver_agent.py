@@ -10,26 +10,34 @@ def solve_problem(parsed, context):
     text = parsed["problem_text"].lower()
 
     try:
-        # Derivatives
+        # DERIVATIVES
         if "derivative" in text:
-            expr_str = normalize_expression(text.split("of")[-1])
+            raw = text.split("of")[-1].strip()
+            raw = raw.replace("sin x", "sin(x)").replace("cos x", "cos(x)")
+            raw = normalize_expression(raw)
             x = sp.symbols('x')
-            expr = sp.sympify(expr_str)
+            expr = sp.sympify(raw)
             sol = sp.diff(expr, x)
             return {"solution": str(sol), "method": "derivative"}
 
-        # Quadratic equations
-        if "solve" in text and "x" in text:
-            eq = normalize_expression(text.replace("solve", "").replace("=", "-(") + ")")
+        # QUADRATIC EQUATIONS
+        if "solve" in text and "x" in text and "=" in text:
+            raw = text.replace("solve", "").strip()
+            left, right = raw.split("=")
+            left = normalize_expression(left)
+            right = normalize_expression(right)
             x = sp.symbols('x')
-            sol = sp.solve(sp.sympify(eq), x)
+            equation = sp.sympify(left) - sp.sympify(right)
+            sol = sp.solve(equation, x)
             return {"solution": str(sol), "method": "quadratic"}
 
-        # Limits
+        # LIMITS
         if "limit" in text:
-            expr = normalize_expression(text.split("of")[-1].split("as")[0])
+            raw = text.split("of")[-1].split("as")[0].strip()
+            raw = raw.replace("sin x", "sin(x)").replace("cos x", "cos(x)")
+            raw = normalize_expression(raw)
             x = sp.symbols('x')
-            sol = sp.limit(sp.sympify(expr), x, 0)
+            sol = sp.limit(sp.sympify(raw), x, 0)
             return {"solution": str(sol), "method": "limit"}
 
         return {"solution": "Solver could not recognize problem type.", "method": "unknown"}
